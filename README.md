@@ -8,8 +8,7 @@ sections of its network to failures to anticipate service disruption or at least
 nefarious effects.
 
 ### Dataset
-- Portuguese continental railway network<br>
-This dataset contains:
+- Portuguese continental railway network
 - stations.csv - lists a description of each railway network station and stop (532 in total). Consists
   of designation of the station/stop ("Name"), district ("District"), municipality ("Municipality"), and
   township ("Township") it belongs and the main line ("Line") that it serves.
