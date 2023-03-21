@@ -3,4 +3,4 @@ project(Railway_DA)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Railway_DA main.cpp)
+add_executable(Railway_DA src/Station.cpp src/main.cpp)
