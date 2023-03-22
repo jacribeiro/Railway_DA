@@ -65,7 +65,6 @@ bool mnt_bfs(Station *s, Station *t, vector<Station *> g) {
 vector<pair<Station *, Station *>> maxCostStations(vector<Station *> g) {
     int highest_cost = 0;
     vector<pair<Station *, Station *>> ret;
-    vector<Segment *> edges;
     for(auto v : g){
         v->setVisited(false);
         for(auto e : v->getAdj()){
@@ -79,16 +78,13 @@ vector<pair<Station *, Station *>> maxCostStations(vector<Station *> g) {
             if(!e->getVisited() && w->getIs()){
                 if(e->getCap() > highest_cost){
                     highest_cost = e->getCap();
-                    edges.clear();
-                    edges.push_back(e);
+                    ret.clear();
+                    ret.emplace(ret.end(), e->getA(), e->getB());
                 }
-                if(e->getCap() == highest_cost) edges.push_back(e);
+                else if(e->getCap() == highest_cost) ret.emplace(ret.end(), e->getA(), e->getB());
                 e->setVisited(true);
             }
         }
-    }
-    for(auto e : edges){
-        ret.emplace(ret.end(), e->getA(), e->getB());
     }
     return ret;
 }
