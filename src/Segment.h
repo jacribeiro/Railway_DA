@@ -12,6 +12,7 @@ class Segment {
     double flow;
     string type;
     int price;
+    bool visited = false; //importa para o maxCostStations
 
 public:
     Segment(Station* a, Station* b, double c, string t);
@@ -23,6 +24,7 @@ public:
     double getFlow();
     string getType();
     int getPrice();
+    bool getVisited();
 
     void setA(Station *a);
     void setB(Station *b);
@@ -30,6 +32,7 @@ public:
     void setFlow(double f);
     void setType(string t);
     void setPrice(int p);
+    void setVisited(bool v);
 };
 
 #endif

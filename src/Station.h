@@ -22,7 +22,7 @@ class Station {
     int ID;
     vector<Segment *> adj;
     bool visited;
-    bool is_in_g;
+    bool is_in_g; //indica se esta estação está no grafo fornecido às funções, deve ser inicializado a true quando g é criado
 
 public:
     Station(string n, string d, string m, string t, string l);

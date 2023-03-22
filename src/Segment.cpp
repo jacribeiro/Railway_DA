@@ -50,3 +50,11 @@ void Segment::setType(string t) {
 void Segment::setPrice(int p) {
     this->price = p;
 }
+
+bool Segment::getVisited() {
+    return this->visited;
+}
+
+void Segment::setVisited(bool v) {
+    this->visited = v;
+}
