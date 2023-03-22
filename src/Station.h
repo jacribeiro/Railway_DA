@@ -6,6 +6,8 @@
 #define RAILWAY_DA_STATION_H
 
 #include <string>
+#include <vector>
+#include "Segment.h"
 
 using namespace std;
 
@@ -15,6 +17,12 @@ class Station {
     string municipality;
     string township;
     string line;
+
+    Segment* previous;
+    int ID;
+    vector<Segment *> adj;
+    bool visited;
+    bool is_in_g;
 
 public:
     Station(string n, string d, string m, string t, string l);
@@ -26,7 +34,20 @@ public:
     string getTownship();
     string getLine();
 
+    void setName(string n);
+    void setDistrict(string d);
+    void setMunicipality(string m);
+    void setTownship(string t);
+    void setLine(string l);
 
+    Segment* getPrevious();
+    int getID();
+    void setPrevious(Segment* s);
+    vector<Segment *> getAdj();
+    bool getVisited();
+    void setVisited(bool b);
+    bool getIs();
+    void setIs(bool b);
 };
 
 
