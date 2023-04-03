@@ -34,3 +34,55 @@ string Station::getTownship() {
 string Station::getLine() {
     return this->line;
 }
+
+Segment* Station::getPrevious() {
+    return this->previous;
+}
+
+int Station::getID() {
+    return this->ID;
+}
+
+void Station::setName(string s) {
+    this->name = s;
+}
+
+void Station::setDistrict(string d) {
+    this->district = d;
+}
+
+void Station::setMunicipality(string m) {
+    this->municipality = m;
+}
+
+void Station::setTownship(string t) {
+    this->township = t;
+}
+
+void Station::setLine(string l) {
+    this->line = l;
+}
+
+void Station::setPrevious(Segment *s) {
+    this->previous = s;
+}
+
+vector<Segment *> Station::getAdj() {
+    return this->adj;
+}
+
+bool Station::getVisited() {
+    return this->visited;
+}
+    
+void Station::setVisited(bool b) {
+    this->visited = b;
+}
+
+bool Station::getIs() {
+    return this->is_in_g;
+}
+
+void Station::setIs(bool b) {
+    this->is_in_g = b;
+}
