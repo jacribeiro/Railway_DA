@@ -1,7 +1,3 @@
-//
-// Created by Joao Ribeiro on 21/03/2023.
-//
-
 #ifndef RAILWAY_DA_STATION_H
 #define RAILWAY_DA_STATION_H
 
@@ -52,6 +48,7 @@ public:
     void setVisited(bool b);
     bool getIs();
     void setIs(bool b);
+    void addSegment(Segment* destination);
     bool operator==(const Station& s1) const;
 };
 

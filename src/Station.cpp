@@ -90,6 +90,10 @@ void Station::setIs(bool b) {
     this->is_in_g = b;
 }
 
+void Station::addSegment(Segment *destination) {
+    adj.push_back(destination);
+}
+
 bool Station::operator==(const Station& s1) const {
     return this->ID == s1.ID;
 }
