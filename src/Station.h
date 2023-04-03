@@ -12,15 +12,15 @@
 using namespace std;
 
 class Station {
-    string name;
-    string district;
+    string name; 
+    string district; 
     string municipality;
     string township;
     string line;
 
-    Segment* previous;
-    int ID;
-    vector<Segment *> adj;
+    Segment* previous; //segmento que precede a estação (usado em bfs e assim, pode ser nullptr)
+    int ID; //id da estação, mais fácil do que usar o nome
+    vector<Segment *> adj; //segmentos adjacentes
     bool visited;
     bool is_in_g; //indica se esta estação está no grafo fornecido às funções, deve ser inicializado a true quando g é criado
 

@@ -12,7 +12,7 @@ class Segment {
     double flow;
     string type;
     int price;
-    bool visited = false; //importa para o maxCostStations
+    bool visited = false; //importa para o maxCostStations e bfs etc etc
 
 public:
     Segment(Station* a, Station* b, double c, string t);
