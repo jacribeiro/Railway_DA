@@ -5,7 +5,9 @@
 #include "Station.h"
 
 Station::Station(string n, string d, string m, string t, string l):
-    name(n), district(d), municipality(m), township(t), line(l) {};
+    name(n), district(d), municipality(m), township(t), line(l) {
+    ID = ++nextID;
+};
 
 Station::Station(Station& s) {
     this->name = s.name;
@@ -13,6 +15,7 @@ Station::Station(Station& s) {
     this->municipality = s.municipality;
     this->township = s.township;
     this->line = s.line;
+    this->ID = s.ID;
 }
 
 string Station::getName() {
@@ -85,4 +88,12 @@ bool Station::getIs() {
 
 void Station::setIs(bool b) {
     this->is_in_g = b;
+}
+
+void Station::addSegment(Segment *destination) {
+    adj.push_back(destination);
+}
+
+bool Station::operator==(const Station& s1) const {
+    return this->ID == s1.ID;
 }

@@ -9,14 +9,13 @@ class Segment {
     Station* stationA;
     Station* stationB;
     double capacity;
-    double flow;
+    double flow = 0;
     string type;
-    int price;
+    int price = 0;
     bool visited = false; //importa para o maxCostStations e bfs etc etc
 
 public:
     Segment(Station* a, Station* b, double c, string t);
-    ~Segment();
 
     Station* getA();
     Station* getB();

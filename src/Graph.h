@@ -8,10 +8,18 @@
 using namespace std;
 
 class Graph {
-    vector<Station*> StationSet;
+
 public:
+    vector<Station*> StationSet;
+
     Graph(/* args */);
-    ~Graph();
+    /**
+     * Returns a pointer to a Station within the graph
+     * @param name Name of the station to be searched
+     * @return Pointer to the station in case of success, nullptr otherwise
+     */
+    Station* getStation(string name);
+
 };
 
 #endif
