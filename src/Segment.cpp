@@ -1,7 +1,7 @@
 #include "Segment.h"
 
-Segment::Segment(Station* a, Station* b, double c, string t):
-    stationA(a), stationB(b), capacity(c), type(t){};
+Segment::Segment(Station *a, Station *b, double c, string t):
+    stationA(a), stationB(b), capacity(c), type(t) {};
 
 Station* Segment::getA(){
     return this->stationA;
