@@ -45,11 +45,10 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
             Station *stB = g.getStation(stationB);
             Segment s1(stA, stB, stod(capacity), type);
             Segment s2(stB, stA, stod(capacity), type);
-            if (type == "STANDARD") {}
+            if (type == "STANDARD") {
                 s1.setPrice(2);
                 s2.setPrice(2);
-            }
-            else {
+            } else {
                 s1.setPrice(4);
                 s2.setPrice(2);
             }

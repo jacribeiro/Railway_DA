@@ -15,7 +15,7 @@ class Segment {
     bool visited = false; //importa para o maxCostStations e bfs etc etc
 
 public:
-    Segment(Station* a, Station* b, double c, string t);
+    Segment(Station *a, Station *b, double c, string t);
 
     Station* getA();
     Station* getB();
