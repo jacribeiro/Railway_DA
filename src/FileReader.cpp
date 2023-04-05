@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
 #include "FileReader.h"
 #include "Segment.h"
 
