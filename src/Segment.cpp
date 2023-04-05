@@ -1,3 +1,4 @@
+#include "Station.h"
 #include "Segment.h"
 
 Segment::Segment(Station *a, Station *b, double c, string t):

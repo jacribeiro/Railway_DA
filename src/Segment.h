@@ -1,13 +1,14 @@
 #ifndef RAILWAY_SEGMENT_DA_H
 #define RAILWAY_SEGMENT_DA_H
 
-#include "Station.h"
 #include <string>
 using namespace std;
 
+class Station;
+
 class Segment {
-    Station* stationA;
-    Station* stationB;
+    Station *stationA;
+    Station *stationB;
     double capacity;
     double flow = 0;
     string type;
@@ -17,8 +18,8 @@ class Segment {
 public:
     Segment(Station *a, Station *b, double c, string t);
 
-    Station* getA();
-    Station* getB();
+    Station *getA();
+    Station *getB();
     double getCap();
     double getFlow();
     string getType();

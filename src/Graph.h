@@ -11,6 +11,7 @@ class Graph {
 
 public:
     vector<Station*> StationSet;
+    vector<Segment*> SegmentSet;
 
     Graph(/* args */);
     /**
