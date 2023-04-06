@@ -53,14 +53,6 @@ void Segment::setPrice(int p) {
     this->price = p;
 }
 
-bool Segment::getVisited() const {
-    return this->visited;
-}
-
-void Segment::setVisited(bool v) {
-    this->visited = v;
-}
-
 int Segment::getPrevCap() const {
     return this->prev_capacity;
 }
