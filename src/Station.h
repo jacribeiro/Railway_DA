@@ -3,9 +3,10 @@
 
 #include <string>
 #include <vector>
-#include "Segment.h"
 
 using namespace std;
+
+class Segment;
 
 class Station {
     string name; 
@@ -18,10 +19,9 @@ class Station {
     int ID;
     vector<Segment *> adj; //adjacent Segments
     bool visited = false;
-    bool is_in_g; //indicates if this Station is reached on report_losses
+    bool is_in_g; //indica se esta estação está no grafo fornecido às funções, deve ser inicializado a true quando g é criado
+    int arrive;
 
-//protected:
-//    static int nextID = 0;
 
 public:
 
