@@ -9,7 +9,7 @@ int Station::nextID = 0;
 
 Station::Station(string n, string d, string m, string t, string l):
     name(n), district(d), municipality(m), township(t), line(l) {
-    //ID = ++nextID;
+    ID = ++nextID;
 };
 
 Station::Station(Station& s) {

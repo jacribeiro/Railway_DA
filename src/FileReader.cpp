@@ -23,7 +23,7 @@ int FileReader::readStationsFile(const std::string &fname, Graph& g) {
             getline(input, township, ',');
             getline(input, line, ',');
             Station *s = new Station(name, district, municipality, township, line);
-            g.StationSet.push_back(s);
+            g.getStationSet().push_back(s);
         }
         return 0;
     } else {
@@ -54,7 +54,7 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
             } else {
                 s1->setPrice(4);
             }
-            g.SegmentSet.push_back(s1);
+            g.getSegmentSet().push_back(s1);
             stA->addSegment(s1);
             stB->addSegment(s1);
 
