@@ -4,6 +4,7 @@
 
 #include "FileReader.h"
 #include "Segment.h"
+#include "Station.h"
 
 FileReader::FileReader() = default;
 
@@ -44,6 +45,7 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
             getline(input, stationB, ',');
             getline(input, capacity, ',');
             getline(input, type, ',');
+
             Station *stA = g.getStation(stationA);
             Station *stB = g.getStation(stationB);
             Segment *s1 = new Segment(stA, stB, stod(capacity), type);
@@ -55,6 +57,7 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
             g.SegmentSet.push_back(s1);
             stA->addSegment(s1);
             stB->addSegment(s1);
+
         }
         return 0;
     } else {

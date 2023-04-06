@@ -54,7 +54,7 @@ bool mnt_bfs(Station *s, Station *t, vector<Station *> g) {
             else{
                 w = e->getA();
             }
-            if((w->getIs() && !w->getVisited()) && e->getCap() - e->getFlow() > 0){
+            if(!w->getVisited() && e->getCap() - e->getFlow() > 0){
                 w->setVisited(true);
                 w->setPrevious(e);
                 q.push(w);
@@ -173,7 +173,7 @@ bool findMinCostWay(Station *s, Station *t, vector<Station *> g) {
                     next_v = e->getA();
                 }
 
-                if((next_v->getIs() && !next_v->getVisited()) && e->getCap() - e->getFlow() > 0){
+                if(!next_v->getVisited() && e->getCap() - e->getFlow() > 0){
                     next_v->setVisited(true);
                     next_v->setPrevious(e);
                     q.push(next_v);
@@ -219,6 +219,86 @@ int maxTrains_forGivenStation(Station *t, vector<Station *> g) {
             w->setVisited(true);
             if(v->getPrevious() != nullptr && v->getPrevious()->getCap() > e->getCap()) ret -= e->getCap();
             if(ret <= min) return min;
+        }
+    }
+    return ret;
+}
+
+void bfs_less(Station *s, vector<Station *> g, vector<mock_station> &vec) {
+    queue<Station *> q;
+    
+    q.push(s);
+    s->setVisited(true);
+    s->setIs(true);
+    mock_station ss = {s->getName(), 0, 0, 0};
+    for(auto e : s->getAdj()){
+        ss.new_cap += e->getCap();
+        ss.prev_cap += e->getPrevCap();
+    }
+    ss.loss = 1 - (ss.new_cap / ss.prev_cap);
+    vec.push_back(ss);
+    while(!q.empty()){
+        auto v = q.front();
+        q.pop();
+        for(auto e : v->getAdj()){
+            Station *w;
+            if(v->getID() == e->getA()->getID()){
+                w = e->getB();
+            }
+            else{
+                w = e->getA();
+            }
+            if((w->getIs() && !w->getVisited()) && e->getCap() != 0){
+                w->setVisited(true);
+                q.push(w);
+                if(!w->getIs()){
+                    mock_station ww;
+                    int ncap = 0, pcap = 0;
+                    for(auto e : w->getAdj()){
+                        ncap += e->getCap();
+                        pcap += e->getPrevCap();
+                    }
+                    ww.name = w->getName();
+                    ww.new_cap = ncap;
+                    ww.prev_cap = pcap;
+                    ww.loss = 1 - (ncap / pcap);
+                    vec.push_back(ww);
+                    w->setIs(true);
+                }
+            }
+        }
+    }
+}
+
+vector<mock_station> report_losses(vector<Segment *> v, vector<Station *> g) {
+    vector<Station*> visited_nodes;
+    vector<aux> edges_to_remove;
+    vector<mock_station> ret;
+    for(auto s : g){
+        s->setIs(false);
+    }
+    for(auto s : v){
+        edges_to_remove.emplace_back(s->getCap(), s->getA(), s->getB());
+        s->setCap(0);
+        
+    }
+    for(auto s : edges_to_remove){
+        for(Station* st : g){
+            st->setPrevious(nullptr);
+            st->setVisited(false);
+            st->setIs(true);
+        }
+        bfs_less(s.stA, g, ret);
+        bfs_less(s.stB, g, ret);
+    }
+    sort(ret.begin(), ret.end(), [](mock_station m1, mock_station m2) {return m1.loss >= m2.loss;});
+    for(auto v : g){
+        if(!v->getIs()){
+            int c = 0;
+            for(auto s : v->getAdj()){
+                c += s->getCap();
+            }
+            ret.push_back({v->getName(), c, c, 0});
         }
     }
     return ret;

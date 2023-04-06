@@ -15,14 +15,19 @@ class Station {
     string township;
     string line;
 
-    Segment* previous = nullptr; //segmento que precede a estação (usado em bfs e assim, pode ser nullptr)
+
+    Segment* previous = NULL; //segmento que precede a estação (usado em bfs e assim, pode ser nullptr)
+
     int ID; //id da estação, mais fácil do que usar o nome
     vector<Segment *> adj; //segmentos adjacentes
     bool visited = false;
-    bool is_in_g = true; //indica se esta estação está no grafo fornecido às funções, deve ser inicializado a true quando g é criado
+    bool is_in_g; //indica se esta estação está no grafo fornecido às funções, deve ser inicializado a true quando g é criado
+    int arrive;
 
-protected:
-    static int nextID;
+
+//protected:
+//    static int nextID = 0;
+
 
 public:
 
@@ -51,6 +56,8 @@ public:
     void setIs(bool b);
     void addSegment(Segment* destination);
     bool operator==(const Station& s1) const;
+    int getArrive();
+    void setArrive(int a);
 };
 
 

@@ -8,12 +8,15 @@
 using namespace std;
 
 class Graph {
-
-public:
     vector<Station*> StationSet;
     vector<Segment*> SegmentSet;
+    
+public:
+    Graph();
 
-    Graph(/* args */);
+    vector<Station*> getStationSet();
+    vector<Segment*> getSegmentSet();
+
     /**
      * Returns a pointer to a Station within the graph
      * @param name Name of the station to be searched

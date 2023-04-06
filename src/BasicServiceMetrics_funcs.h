@@ -24,5 +24,22 @@ int minCost_maxFlow(Station *s, Station *t, vector<Station *> g);
 bool findMinCostWay(Station *s, Station *t, vector<Station *> g);
 //2.4
 int maxTrains_forGivenStation(Station *t, vector<Station *> g);
+//4.2
+struct mock_station {
+    string name;
+    int prev_cap;
+    int new_cap;
+    double loss;
+};
+
+struct aux {
+    int cap;
+    Station *stA;
+    Station *stB;
+};
+
+void bfs_less(Station *s, vector<Station *> g, vector<mock_station> &vec);
+
+vector<mock_station> report_losses(vector<Segment *> v, vector<Station *> g);
 
 #endif
