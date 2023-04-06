@@ -2,7 +2,10 @@
 // Created by Joao Ribeiro on 21/03/2023.
 //
 
+#include "Segment.h"
 #include "Station.h"
+
+int Station::nextID = 0;
 
 Station::Station(string n, string d, string m, string t, string l):
     name(n), district(d), municipality(m), township(t), line(l) {

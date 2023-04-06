@@ -10,6 +10,7 @@ using namespace std;
 class Graph {
     vector<Station*> StationSet;
     vector<Segment*> SegmentSet;
+    
 public:
     Graph();
 

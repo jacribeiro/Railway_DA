@@ -1,9 +1,10 @@
+#include "Station.h"
 #include "Segment.h"
 
-#include <utility>
 
 Segment::Segment(Station *a, Station *b, int c, string t):
     stationA(a), stationB(b), capacity(c), type(std::move(t)), price(0), prev_capacity(c) {};
+
 
 Station* Segment::getA(){
     return this->stationA;
