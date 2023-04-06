@@ -6,7 +6,7 @@
 
 Station::Station(string n, string d, string m, string t, string l):
     name(n), district(d), municipality(m), township(t), line(l) {
-    ID = ++nextID;
+    //ID = ++nextID;
 };
 
 Station::Station(Station& s) {
@@ -96,4 +96,12 @@ void Station::addSegment(Segment *destination) {
 
 bool Station::operator==(const Station& s1) const {
     return this->ID == s1.ID;
+}
+
+int Station::getArrive() {
+    return this->arrive;
+}
+
+void Station::setArrive(int a) {
+    this->arrive = a;
 }

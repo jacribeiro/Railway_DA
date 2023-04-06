@@ -3,6 +3,7 @@
 #include <sstream>
 #include "FileReader.h"
 #include "Segment.h"
+#include "Station.h"
 
 FileReader::FileReader() = default;
 
@@ -41,20 +42,17 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
             getline(input, stationB, ',');
             getline(input, capacity, ',');
             getline(input, type, ',');
-            Station *stA = g.getStation(stationA);
-            Station *stB = g.getStation(stationB);
-            Segment s1(stA, stB, stod(capacity), type);
-            Segment s2(stB, stA, stod(capacity), type);
-            if (type == "STANDARD") {}
+            auto stA = g.getStation(stationA);
+            auto stB = g.getStation(stationB);
+            Segment s1 = Segment(stA, stB, stoi(capacity), type);
+            if (type == "STANDARD") {
                 s1.setPrice(2);
-                s2.setPrice(2);
             }
             else {
                 s1.setPrice(4);
-                s2.setPrice(2);
             }
             stA->addSegment(&s1);
-            stB->addSegment(&s2);
+            stB->addSegment(&s1);
         }
     } else {
         cerr << "Could not open network file" << endl;
