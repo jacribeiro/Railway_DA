@@ -8,7 +8,8 @@
 
 FileReader::FileReader() = default;
 
-int FileReader::readStationsFile(const std::string &fname, Graph& g) {
+int FileReader::readStationsFile(const std::string& fname, Graph& g) {
+    int i = 1;
     ifstream file(fname);
     if (file.is_open()) {
         // Read the first line and discard
@@ -24,7 +25,9 @@ int FileReader::readStationsFile(const std::string &fname, Graph& g) {
             getline(input, line, ',');
             Station *s = new Station(name, district, municipality, township, line);
             g.getStationSet().push_back(s);
+            i++;
         }
+        cout << i << " stations read" << endl;
         return 0;
     } else {
         cerr << "Could not open stations file" << endl;
@@ -32,7 +35,8 @@ int FileReader::readStationsFile(const std::string &fname, Graph& g) {
     }
 }
 
-int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
+int FileReader::readNetworkFile(const std::string& fname, Graph& g) {
+    int i = 1;
     ifstream file(fname);
     if (file.is_open()) {
         // Read the first line and discard
@@ -48,7 +52,7 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
 
             Station *stA = g.getStation(stationA);
             Station *stB = g.getStation(stationB);
-            Segment *s1 = new Segment(stA, stB, stod(capacity), type);
+            Segment *s1 = new Segment(stA, stB, stoi(capacity), type);
             if (type == "STANDARD\r") {
                 s1->setPrice(2);
             } else {
@@ -57,8 +61,9 @@ int FileReader::readNetworkFile(const std::string &fname, Graph &g) {
             g.getSegmentSet().push_back(s1);
             stA->addSegment(s1);
             stB->addSegment(s1);
-
+            i++;
         }
+        cout << i << " segments read" << endl;
         return 0;
     } else {
         cerr << "Could not open network file" << endl;

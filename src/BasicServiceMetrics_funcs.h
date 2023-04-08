@@ -21,6 +21,8 @@ struct aux {
     int cap;
     Station *stA;
     Station *stB;
+
+    aux(int i, Station *st1, Station *st2): cap(i), stA(st1), stB(st2) {};
 };
 
 struct pair_costs {
