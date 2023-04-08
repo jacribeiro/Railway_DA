@@ -27,19 +27,12 @@ void Menu::show() {
     vector<Segment *> v;
     while (working) {
         cout << "Hello, what task are you interested in today?\n";
-        // 1. Max number of trains between two stations - ask for input of stations, call function
         cout << "1. Calculate maximum number of trains between two stations\n";
-        // 2. Determine which pair(s) of stations require(s) the most amount of trains between them
         cout << "2. Find the pair(s) of stations that require the most trains between them\n";
-        // 3. Advice on budget assignment, ask for number of stations to advice report
         cout << "3. Find top-k municipalities, given budget requirements for their stations\n";
-        // 4. Report max number of trains that can arrive to a given station, simultaneously - ask for station
         cout << "4. Report maximum number of trains that can arrive at a station\n";
-        // 5. Report max number of trains that can travel between two stations, given min budget - ask for stations
         cout << "5. Report maximum number of trains between stations with lowest possible budget\n";
-        // 6. Reduced connectivity options
         cout << "6. Reduced connectivity options\n";
-        // 7. Leave the system
         cout << "7. Exit the system\n";
         int o1; cin >> o1;
         switch (o1) {
@@ -62,14 +55,16 @@ void Menu::show() {
             case 4:
                 cout << "4. Report maximum number of trains that can arrive at a station\n";
                 cout << "Please provide the name of the station: \n";
-                cin >> st3;
+                cin.ignore();
+                getline(cin, st3);
                 showMaxTrainsStation(st3); break;
             case 5:
                 cout << "5. Report maximum number of trains between stations with lowest possible budget\n";
                 cout << "Please provide the name of the stations: \nOrigin: ";
-                cin >> st4;
+                cin.ignore();
+                getline(cin, st4);
                 cout << "Destination: ";
-                cin >> st5;
+                getline(cin, st5);
                 showMaxTMinB(st4, st5); break;
             case 6:
                 cout << "6. Reduced connectivity options\n";
@@ -109,21 +104,21 @@ void Menu::show() {
 // Option 1
 void Menu::showMaxNumTrains(const string &st1, const string &st2) {
     int max = maxNumberTrains(network.getStation(st1), network.getStation(st2), network.getStationSet());
-    cout << "The maximum numbers of trains that can travel between " << st1 << " and " << st2 << "is " << max << endl;
+    cout << "The maximum numbers of trains that can travel between " << st1 << " and " << st2 << " is " << max << endl;
 }
 
 // Option 2
 void Menu::showMostTrainsPairs() {
-    vector<pair<Station *, Station *>> v = maxCostStations(network.getStationSet());
-    cout << "The stations with the most trains travelling between them are:\n";
-    for (auto s: v) {
-        cout << s.first->getName() << " - " << s.second->getName() << endl;
+    vector<pair_costs> v = maxCostStations(network.getStationSet());
+    cout << "The pairs of stations with the most trains travelling between them are:\n";
+    for (int i = 0; i < 10; i++) {
+        cout << v[i].stA << " - " << v[i].stB << endl;
     }
 }
 
 // Option 3
 void Menu::showBudgetAssign(int k) {
-    vector<Station *> v = budget_assignment(network.getStationSet());
+    vector<Station *>& v = budget_assignment(network.getStationSet());
     cout << "The " << k << " stations that require the most budget are:\n";
     for (int i = 0; i < k; i++) {
         cout << i+1 << ". " << v[i]->getName() << " in " << v[i]->getMunicipality() << ", " << v[i]->getDistrict() << endl;
