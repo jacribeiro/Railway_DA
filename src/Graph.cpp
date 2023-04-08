@@ -11,10 +11,20 @@ Station* Graph::getStation(std::string name) {
     return nullptr;
 }
 
-vector<Station*> Graph::getStationSet() {
+vector<Station*>& Graph::getStationSet() {
     return this->StationSet;
 }
 
-vector<Segment*> Graph::getSegmentSet() {
+vector<Segment*>& Graph::getSegmentSet() {
     return this->SegmentSet;
+}
+
+void Graph::clearSegments() {
+    for (auto s: SegmentSet)
+        delete s;
+}
+
+void Graph::clearStations() {
+    for (auto s: StationSet)
+        delete s;
 }

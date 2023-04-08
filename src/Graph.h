@@ -12,10 +12,22 @@ class Graph {
     vector<Segment*> SegmentSet;
     
 public:
+    /**
+     * Default constructor for the class Graph
+     */
     Graph();
 
-    vector<Station*> getStationSet();
-    vector<Segment*> getSegmentSet();
+    /**
+     * Returns the vector of stations in the network
+     * @return Vector of stations in the network
+     */
+    vector<Station*>& getStationSet();
+
+    /**
+     * Returns the vector of segments in the network
+     * @return Vector of segments in the network
+     */
+    vector<Segment*>& getSegmentSet();
 
     /**
      * Returns a pointer to a Station within the graph
@@ -23,6 +35,16 @@ public:
      * @return Pointer to the station in case of success, nullptr otherwise
      */
     Station* getStation(string name);
+
+    /**
+     * Deletes all allocated objects in SegmentSet
+     */
+    void clearSegments();
+
+    /**
+     * Deletes all allocated objects in StationSet
+     */
+    void clearStations();
 
 };
 

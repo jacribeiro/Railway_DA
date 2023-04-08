@@ -7,8 +7,8 @@
 using namespace std;
 
 class Menu {
-    FileReader reader;
-    Graph network;
+    FileReader& reader;
+    Graph& network;
 
 protected:
     /**
@@ -53,12 +53,12 @@ protected:
      *
      * @param k
      */
-    void showRCMostAffStations(int k);
+    void showRCMostAffStations(vector<Segment *>& v, int k);
 
     /**
      *
      */
-    void showReduceConnectivity();
+    void showReduceConnectivity(vector<Segment *>& v);
 
 public:
     
@@ -66,14 +66,14 @@ public:
      * Creates a new Menu object
      * 
      * @param r A FileReader object responsible for reading the network files
-     * @param n A Graph object, representing the Railway network
+     * @param n A Graph object, representing the Railway Network
     */
-    Menu(FileReader r, Graph n);
+    Menu(FileReader& r, Graph& n);
 
     /**
      * Prints the interface and interacts with the user
     */
     void show();
-}
+};
 
 #endif

@@ -18,7 +18,7 @@ public:
      * @param g Reference to graph to store the stations of the network
      * @return 0 in case of no errors, 1 otherwise
      */
-    int readStationsFile(const std::string &fname, Graph& g);
+    static int readStationsFile(const std::string& fname, Graph& g);
 
     /**
      * Reads/parses a CSV format file containing the connections between stations in the network
@@ -26,7 +26,7 @@ public:
      * @param g Reference to graph containing the stations of the network
      * @return 0 in case of no errors, 1 otherwise
      */
-    int readNetworkFile(const std::string &fname, Graph &g);
+    static int readNetworkFile(const std::string& fname, Graph& g);
 };
 
 
