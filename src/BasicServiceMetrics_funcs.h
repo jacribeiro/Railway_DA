@@ -7,6 +7,8 @@
 #include <queue>
 #include <utility>
 #include <vector>
+#include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -34,17 +36,14 @@ struct pair_costs {
 };
 
 /**
- * This struct contains an overwrite of the operator().
- * It is needed to order the vector of Stations by their cost.
+ * This struct is needed to order the vector of Stations by their cost.
 */
 struct order_budget
 {
-    bool operator() (Station *s1, Station *s2){
-        int s1_p = 0, s2_p = 0;
-        for(auto e : s1->getAdj()) s1_p += e->getCap() * e->getPrice();
-        for(auto e : s2->getAdj()) s2_p += e->getCap() * e->getPrice();
-        return s1_p >= s2_p;
-    }
+    string name;
+    string municipality;
+    string district;
+    int cost;
 };
 
 /**
@@ -80,10 +79,10 @@ vector<pair_costs> maxCostStations(vector<Station *>& g);
  * @param g The Stations that compose the Graph
  * @return The vector of Stations ordered in non-ascending order of maintenance costs
  *
- * This function orders the Station list by cost,
- * by calling the overwritten operator() of order_budget.
+ * This function orders the Station list by cost, using the order_budget struct
+ * instead of the Stations themselves.
 */
-vector<Station *>& budget_assignment(vector<Station *>& g);
+vector<Station*>& budget_assignment(int k, vector<Station *>& g);
 
 /**
  * @param s The source station, from where trains will start their path

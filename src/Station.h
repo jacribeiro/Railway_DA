@@ -19,8 +19,7 @@ class Station {
     int ID;
     vector<Segment *> adj; //adjacent Segments
     bool visited = false;
-    bool is_in_g; //indica se esta estação está no grafo fornecido às funções, deve ser inicializado a true quando g é criado
-    int arrive;
+    bool is_in_g; //indicates whether the Station is visited in report_losses()
 
 protected:
     static int nextID;
