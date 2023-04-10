@@ -152,14 +152,14 @@ void Menu::showRCMostAffStations(vector<Segment *>& v, int k) {
 
 // Option 6.3
 void Menu::showReduceConnectivity(vector<Segment *>& v) {
-    string st1, st2;
+    string ori, dest;
     cout << "You will now select a segment of the network where connectivity should be reduced\n";
     cout << "Please insert the name of your origin station: \n";
-    cin >> st1;
-    vector<Segment *> options = network.getStation(st1)->getAdj();
+    getline(cin, ori);
+    vector<Segment *> options = network.getStation(ori)->getAdj();
     cout << "Now select one of the following possible destinations: \n";
     for (int i = 0; i < options.size(); i++) {
-        if (options[i]->getA()->getName() == st1) {
+        if (options[i]->getA()->getName() == ori) {
             cout << i + 1 << options[i]->getB()->getName() << endl;
         } else {
             cout << i + 1 << options[i]->getA()->getName() << endl;
@@ -167,7 +167,25 @@ void Menu::showReduceConnectivity(vector<Segment *>& v) {
     }
     int chosen = 0;
     cin >> chosen;
-    options[chosen-1]->getA()->getName() == st1 ? st2 = options[chosen-1]->getB()->getName() : st2 = options[chosen-1]->getA()->getName();
-    cout << "Chosen segment: " << st1 << " to " << st2 << endl;
+    options[chosen-1]->getA()->getName() == ori ? dest = options[chosen-1]->getB()->getName() : dest = options[chosen-1]->getA()->getName();
+    cout << "Chosen segment: " << ori << " to " << dest << endl;
+    cout << "The current capacity of this segment is " << options[chosen-1]->getCap() << endl;
+    int opt = 0;
+    cout << "Do you wish to:\n";
+    cout << "1. Reduce the capacity\n";
+    cout << "2. Remove the segment completely\n";
+    cin >> opt;
+    int newCap = 0;
+    switch (opt) {
+        case 1:
+            cout << "Enter the new (reduced) capacity: \n";
+            cin >> newCap;
+            options[chosen-1]->setCap(newCap);
+            break;
+        case 2:
+            cout << "The segment will be removed from the network\n";
+            options[chosen-1]->setCap(0);
+            break;
+    }
     v.push_back(options[chosen-1]);
 }
