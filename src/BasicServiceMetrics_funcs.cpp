@@ -151,7 +151,7 @@ int BasicServiceMetrics::minCost_maxFlow(Station *s, Station *t, vector<Station 
 }
 
 int BasicServiceMetrics::maxTrains_forGivenStation(Station *t, vector<Station *>& g) {
-    for(Station* st : g){
+    /*for(Station* st : g){
         st->setPrevious(nullptr);
         st->setVisited(false);
     }
@@ -184,6 +184,11 @@ int BasicServiceMetrics::maxTrains_forGivenStation(Station *t, vector<Station *>
             if(v->getPrevious() != nullptr && v->getPrevious()->getCap() > e->getCap()) ret -= e->getCap();
             if(ret <= min) return min;
         }
+    }
+    return ret;*/
+    int ret = 0;
+    for(auto e : t->getAdj()){
+        ret += e->getCap();
     }
     return ret;
 }
