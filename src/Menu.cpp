@@ -36,13 +36,30 @@ void Menu::show() {
         cout << "7. Exit the system\n";
         int o1; cin >> o1;
         switch (o1) {
-            case 1:
+            case 1:{
                 cout << "1. Calculate maximum number of trains between two stations\n";
                 cout << "Please provide the name of the stations: \nOrigin: ";
-                cin.ignore(); getline(cin, st1);
+                Station* stat1 = nullptr;
+                Station* stat2 = nullptr;
+                cin.ignore();
+                while(stat1 == nullptr){
+                    getline(cin, st1);
+                    stat1 = this->network.getStation(st1);
+                    if(stat1== nullptr){
+                        cout << "Invalid Station, please insert name again.\n";
+                    }
+                }
                 cout << "Destination: ";
-                getline(cin, st2);
-                showMaxNumTrains(st1, st2); break;
+                while(stat2 == nullptr){
+                    getline(cin, st2);
+                    stat2 = this->network.getStation(st2);
+                    if(stat2 == nullptr){
+                        cout << "Invalid Station, please insert name again.\n";
+                    }
+                }
+                delete stat1;
+                delete stat2;
+                showMaxNumTrains(st1, st2); break;}
             case 2:
                 cout << "2. Find the pair(s) of stations that require the most trains between them\n";
                 showMostTrainsPairs(); break;
@@ -52,20 +69,44 @@ void Menu::show() {
                 cout << "For an ordered list regarding budget assignment advice, please insert k: \n";
                 cin >> k;
                 showBudgetAssign(k); break;
-            case 4:
+            case 4:{
                 cout << "4. Report maximum number of trains that can arrive at a station\n";
                 cout << "Please provide the name of the station: \n";
+                Station *stat = nullptr;
                 cin.ignore();
-                getline(cin, st3);
-                showMaxTrainsStation(st3); break;
-            case 5:
+                while(stat == nullptr){
+                    getline(cin, st3);
+                    stat = this->network.getStation(st3);
+                    if(stat == nullptr){
+                        cout << "Invalid Station, please insert name again.\n";
+                    }
+                }
+                delete stat;
+                showMaxTrainsStation(st3); break;}
+            case 5:{
                 cout << "5. Report maximum number of trains between stations with lowest possible budget\n";
                 cout << "Please provide the name of the stations: \nOrigin: ";
                 cin.ignore();
-                getline(cin, st4);
+                Station* stat1 = nullptr;
+                Station* stat2 = nullptr;
+                while(stat1 == nullptr){
+                    cin >> st4;
+                    stat1 = this->network.getStation(st6);
+                    if(stat1 == nullptr){
+                        cout << "Invalid Station, please insert name again.\n";
+                    }
+                }
                 cout << "Destination: ";
-                getline(cin, st5);
-                showMaxTMinB(st4, st5); break;
+                while(stat2 == nullptr){
+                    cin >> st5;
+                    stat2 = this->network.getStation(st7);
+                    if(stat2 == nullptr){
+                        cout << "Invalid Station, please insert name again.\n";
+                    }
+                }
+                delete stat1;
+                delete stat2;
+                showMaxTMinB(st4, st5); break;}
             case 6:
                 cout << "6. Reduced connectivity options\n";
                 cout << "Please choose one of the options: \n";
@@ -76,13 +117,30 @@ void Menu::show() {
                 int o2;
                 cin >> o2;
                 switch (o2) {
-                    case 1:
+                    case 1:{
                         cout << "1. Report the maximum number of trains that can travel between two stations\n";
                         cout << "Please provide the name of the stations: \nOrigin: ";
-                        cin >> st6;
+
+                        Station* stat1 = nullptr;
+                        Station* stat2 = nullptr;
+                        while(stat1 == nullptr){
+                            cin >> st6;
+                            stat1 = this->network.getStation(st6);
+                            if(stat1 == nullptr){
+                                cout << "Invalid Station, please insert name again.\n";
+                            }
+                        }
                         cout << "Destination: ";
-                        cin >> st7;
-                        showRCMaxTrains(st6, st7); break;
+                        while(stat2 == nullptr){
+                            cin >> st7;
+                            stat2 = this->network.getStation(st7);
+                            if(stat2 == nullptr){
+                                cout << "Invalid Station, please insert name again.\n";
+                            }
+                        }
+                        delete stat1;
+                        delete stat2;
+                        showRCMaxTrains(st6, st7); break;}
                     case 2:
                         cout << "2. Find top-k stations most affected by the reduced connectivity (ordered by percentage of capacity lost)\n";
                         cout << "For an ordered list regarding loss of capacity, please insert k: \n";
