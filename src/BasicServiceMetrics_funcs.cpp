@@ -55,7 +55,7 @@ bool mnt_bfs(Station *s, Station *t, vector<Station *>& g) {
             Station *w;
             v->getID() == e->getA()->getID() ? w = e->getB() : w = e->getA();
 
-            if(!w->getVisited() && e->getCap() != 0 && e->getCap() - e->getFlow() > 0){
+            if(e->getCap()!=0 && !w->getVisited() && e->getCap() - e->getFlow() > 0){
                 w->setVisited(true);
                 w->setPrevious(e);
                 q.push(w);
@@ -121,36 +121,31 @@ int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment
         st->setVisited(false);
         st->setIs(false);
     }
-    cout << "done this\n";
-    vector<Segment> l;
+    list<Segment> l;
     for(auto seg : e){
+        seg->setCap(0);
+        seg->setFlow(0);
         l.push_back(*seg);
     }
-    cout << "pushed back everything\n";
     while(!l.empty()){
-        sort(l.begin(), l.end(), [](Segment s1, Segment s2){return s1.getCap()*s1.getPrice() >= s2.getCap()*s2.getPrice();});
+        l.sort([](Segment s1, Segment s2){return s1.getPrevCap()*s1.getPrice() >= s2.getPrevCap()*s2.getPrice();});
         auto x = l.back();
         l.pop_back();
         auto x_a = x.getA();
         auto x_b = x.getB();
-        if(!x_a->getIs() || !x_b->getIs()){
-            x_a->setIs(true);
-            x_b->setIs(true);
+        if(!mnt_bfs(x_a, x_b, g)){
+            for(auto xx : e){
+                if(xx->getA()->getID()==x.getA()->getID() && xx->getB()->getID()==x.getB()->getID()){
+                    xx->setCap(xx->getPrevCap());
+                }
+            }
         }
     }
-    cout << "aglhdj\n";
+    int ret = maxNumberTrains(s, t, g);
     for(auto seg : e){
-        if(!seg->getA()->getIs() || !seg->getB()->getIs()){
-            seg->setCap(0);
-        }
+        seg->setCap(seg->getPrevCap());
     }
-    cout << "altered caps\n";
-    return maxNumberTrains(s, t, g);
-}
-
-bool findMinCostWay(Station *s, Station *t, vector<Station *>& g) {
-
-
+    return ret;
 }
 
 int maxTrains_forGivenStation(Station *t, vector<Station *>& g) {
