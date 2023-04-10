@@ -78,24 +78,15 @@ vector<Station*>& budget_assignment(int k, vector<Station *>& g);
  * @param s The source station, from where trains will start their path
  * @param t The target station, where trains will try to reach
  * @param g The Stations that compose the Graph
+ * @param e The Segments that compose the Graph
  * @return The maximum number of trains that can go from s to t with minimum costs for the company
  *
  * This function calculates the maximum number of trains (flow)
  * that can travel from one station to another with minimum
- * costs for the company.
+ * costs for the company, by building a MST using Kruskal's
+ * algorithm.
 */
 int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment *>& e);
-
-/**
- * @param s The source station, from where trains will start their path
- * @param t The target station, where trains will try to reach
- * @param g The Stations that compose the Graph
- * @return True if the algorithm finds a path from s to t, False otherwise
- *
- * This function uses a greedy algorithm to find the
- * cheapest path between the source node and the sink node.
-*/
-bool findMinCostWay(Station *s, Station *t, vector<Station *>& g);
 
 /**
  * @param t The Station for which the function calculates the maximum number of trains
