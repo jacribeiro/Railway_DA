@@ -119,7 +119,6 @@ void Menu::showMostTrainsPairs() {
 // Option 3
 void Menu::showBudgetAssign(int k) {
     metrics.budget_assignment(k, network.getStationSet());
-
 }
 
 // Option 4

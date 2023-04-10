@@ -81,7 +81,7 @@ vector<pair_costs> BasicServiceMetrics::maxCostStations(vector<Station *>& g) {
     return ret;
 }
 
-vector<Station*>& BasicServiceMetrics::budget_assignment(int k, vector<Station *>& g) {
+void BasicServiceMetrics::budget_assignment(int k, vector<Station *>& g) {
     int m = k;
     for(auto s : g){
         s->setVisited(false);
@@ -114,7 +114,6 @@ vector<Station*>& BasicServiceMetrics::budget_assignment(int k, vector<Station *
         cout << i << ". " << s->getName() << " in " << s->getMunicipality() << ", " << s->getDistrict() << endl;
         i++;
     }
-    return v;
 }
 
 int BasicServiceMetrics::minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment*>& e) {
@@ -151,41 +150,6 @@ int BasicServiceMetrics::minCost_maxFlow(Station *s, Station *t, vector<Station 
 }
 
 int BasicServiceMetrics::maxTrains_forGivenStation(Station *t, vector<Station *>& g) {
-    /*for(Station* st : g){
-        st->setPrevious(nullptr);
-        st->setVisited(false);
-    }
-    
-    int min = 0;
-    int ret = 0;
-    for(auto e : t->getAdj()) {
-        ret += e->getCap();
-        min++;
-    }
-
-    queue<Station *> q;
-    q.push(t);
-    t->setVisited(true);
-
-    while(!q.empty()){
-        auto v = q.front();
-        q.pop();
-        for(auto e : v->getAdj()){
-            Station *w;
-            if(v->getID() == e->getA()->getID()){
-                w = e->getB();
-            }
-            else{
-                w = e->getA();
-            }
-            w->setPrevious(e);
-            q.push(w);
-            w->setVisited(true);
-            if(v->getPrevious() != nullptr && v->getPrevious()->getCap() > e->getCap()) ret -= e->getCap();
-            if(ret <= min) return min;
-        }
-    }
-    return ret;*/
     int ret = 0;
     for(auto e : t->getAdj()){
         ret += e->getCap();

@@ -78,7 +78,7 @@ public:
  * This function orders the Station list by cost, using the order_budget struct
  * instead of the Stations themselves.
 */
-    vector<Station *> &budget_assignment(int k, vector<Station *> &g);
+    void budget_assignment(int k, vector<Station *> &g);
 
 /**
  * @param s The source station, from where trains will start their path
