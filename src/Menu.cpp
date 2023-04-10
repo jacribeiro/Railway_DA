@@ -156,9 +156,17 @@ void Menu::showReduceConnectivity(vector<Segment *>& v) {
     string ori, dest;
     cout << "You will now select a segment of the network where connectivity should be reduced\n";
     cout << "Please insert the name of your origin station: \n";
+
+    Station *stat = nullptr;
     std::cin cin;
-    getline(cin, ori);
-    auto stat = this->network.getStation(ori);
+    while(stat == nullptr){
+        getline(cin, ori);
+        stat = this->network.getStation(ori);
+        if(stat == nullptr){
+            cout << "Invalid Station, please insert name again\n";
+        }
+    }
+
     auto options = stat->getAdj();
     cout << "Now select one of the following possible destinations: \n";
     for (int i = 0; i < options.size(); i++) {
