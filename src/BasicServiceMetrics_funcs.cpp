@@ -79,86 +79,78 @@ vector<pair_costs> maxCostStations(vector<Station *>& g) {
     return ret;
 }
 
-vector<Station *>& budget_assignment(vector<Station *>& g) {
-    sort(g.begin(), g.end(), order_budget());
-    return g;
+vector<Station*>& budget_assignment(int k, vector<Station *>& g) {
+    int m = k;
+    for(auto s : g){
+        s->setVisited(false);
+    }
+    vector<Station*> v;
+    while(k != 0){
+        int c = INT32_MIN;
+        int pos = 0;
+        int rem = 0;
+        while(pos != g.size()){
+            if(!g[pos]->getVisited()){
+                int posc = 0;
+                for(auto e : g[pos]->getAdj()){
+                    posc += e->getCap() * e->getPrice();
+                }
+                if(posc > c){
+                    rem = pos;
+                    c = posc;
+                }
+            }
+            pos++;
+        }
+        v.push_back(g[rem]);
+        g[rem]->setVisited(true);
+        k--;
+    }
+    int i = 1;
+    cout << "The " << m << " stations that require the most budget are:\n";
+    for (auto s : v) {
+        cout << i << ". " << s->getName() << " in " << s->getMunicipality() << ", " << s->getDistrict() << endl;
+        i++;
+    }
+    return v;
 }
 
-int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g) {
-    for(auto v : g){
-        for(auto e : v->getAdj()){
-            e->setFlow(0);
-        }
-    }
-    int max_flow = 0;
-    /*calls findMinCostWay, which (as explained below) finds 
-    the cheapest available path from the 
-    source node to the sink node*/
-    while(findMinCostWay(s, t, g)){
-        int min = INT32_MAX;
-        auto sta_atual = t;
-        auto seg_atual = t->getPrevious();
-        //finds the maximum number of trains that can pass through the path established by findMinCostWay
-        while(true){
-            if(seg_atual->getCap() - seg_atual->getFlow() < min) min = seg_atual->getCap() - seg_atual->getFlow();
-            if(seg_atual->getA()->getID() == sta_atual->getID()) sta_atual = seg_atual->getB();
-            else sta_atual = seg_atual->getA();
-            if(sta_atual->getID() == s->getID()) break;
-            seg_atual = sta_atual->getPrevious();
-        }
-        seg_atual = t->getPrevious();
-        sta_atual = t;
-        //iterates through the path and changes the flow value of the segments
-        while(true){
-            seg_atual->setFlow(seg_atual->getFlow() + min);
-            if(seg_atual->getA()->getID() == sta_atual->getID()) sta_atual = seg_atual->getB();
-            else sta_atual = seg_atual->getA();
-            max_flow += min;
-            if(sta_atual->getID() == s->getID()) break;
-            seg_atual = sta_atual->getPrevious();
-        }
-    }
-    return max_flow;
-}
-
-bool findMinCostWay(Station *s, Station *t, vector<Station *>& g) {
+int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment*>& e) {
     for(Station* st : g){
         st->setPrevious(nullptr);
         st->setVisited(false);
+        st->setIs(false);
     }
-    queue<Station *> q;
-    q.push(s);
-    s->setVisited(true);
-    while(!q.empty()) {
-        auto v = q.front();
-        int min_cost = INT32_MAX;
-        Station *next_v = nullptr;
-        for(auto e : v->getAdj()){
-            if((e->getCap() - e->getFlow()) * e->getPrice() < min_cost){
-                q.pop();
-                min_cost = (e->getCap() - e->getFlow()) * e->getPrice();
-                e->getA()->getID() == v->getID() ? next_v = e->getB() : next_v = e->getA();
-
-                if(!next_v->getVisited() && e->getCap() - e->getFlow() > 0){
-                    next_v->setVisited(true);
-                    next_v->setPrevious(e);
-                    q.push(next_v);
-                    if(next_v->getID() == t->getID()) return true;
-                }
-            }
-            if((e->getCap() - e->getFlow()) * e->getPrice() == min_cost){
-                e->getA()->getID() == v->getID() ? next_v = e->getB() : next_v = e->getA();
-
-                if(!next_v->getVisited() && e->getCap() - e->getFlow() > 0){
-                    next_v->setVisited(true);
-                    next_v->setPrevious(e);
-                    q.push(next_v);
-                    if(next_v->getID() == t->getID()) return true;
-                }
-            }
+    cout << "done this\n";
+    vector<Segment> l;
+    for(auto seg : e){
+        l.push_back(*seg);
+    }
+    cout << "pushed back everything\n";
+    while(!l.empty()){
+        sort(l.begin(), l.end(), [](Segment s1, Segment s2){return s1.getCap()*s1.getPrice() >= s2.getCap()*s2.getPrice();});
+        auto x = l.back();
+        l.pop_back();
+        auto x_a = x.getA();
+        auto x_b = x.getB();
+        if(!x_a->getIs() || !x_b->getIs()){
+            x_a->setIs(true);
+            x_b->setIs(true);
         }
     }
-    return false;
+    cout << "aglhdj\n";
+    for(auto seg : e){
+        if(!seg->getA()->getIs() || !seg->getB()->getIs()){
+            seg->setCap(0);
+        }
+    }
+    cout << "altered caps\n";
+    return maxNumberTrains(s, t, g);
+}
+
+bool findMinCostWay(Station *s, Station *t, vector<Station *>& g) {
+
+
 }
 
 int maxTrains_forGivenStation(Station *t, vector<Station *>& g) {

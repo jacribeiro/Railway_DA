@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <string.h>
+#include <list>
 
 using namespace std;
 
@@ -33,17 +34,6 @@ struct pair_costs {
     int flow;
 
     pair_costs(string a, string b, int f): stA(a), stB(b), flow(f) {};
-};
-
-/**
- * This struct is needed to order the vector of Stations by their cost.
-*/
-struct order_budget
-{
-    string name;
-    string municipality;
-    string district;
-    int cost;
 };
 
 /**
@@ -94,7 +84,7 @@ vector<Station*>& budget_assignment(int k, vector<Station *>& g);
  * that can travel from one station to another with minimum
  * costs for the company.
 */
-int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g);
+int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment *>& e);
 
 /**
  * @param s The source station, from where trains will start their path

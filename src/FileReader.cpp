@@ -27,7 +27,7 @@ int FileReader::readStationsFile(const std::string& fname, Graph& g) {
             g.getStationSet().push_back(s);
             i++;
         }
-        cout << i << " stations read" << endl;
+        cout << i-1 << " stations read" << endl;
         return 0;
     } else {
         cerr << "Could not open stations file" << endl;
@@ -53,7 +53,7 @@ int FileReader::readNetworkFile(const std::string& fname, Graph& g) {
             Station *stA = g.getStation(stationA);
             Station *stB = g.getStation(stationB);
             Segment *s1 = new Segment(stA, stB, stoi(capacity), type);
-            if (type == "STANDARD\r") {
+            if (type.compare("STANDARD") == 0) {
                 s1->setPrice(2);
             } else {
                 s1->setPrice(4);
