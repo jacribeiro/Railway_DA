@@ -59,7 +59,7 @@ void Menu::show() {
                 }
                 delete stat1;
                 delete stat2;
-                showMaxNumTrains(st1, st2); break;}
+                showMaxNumTrains(st1, st2); break; }
             case 2:
                 cout << "2. Find the pair(s) of stations that require the most trains between them\n";
                 showMostTrainsPairs(); break;
@@ -82,7 +82,7 @@ void Menu::show() {
                     }
                 }
                 delete stat;
-                showMaxTrainsStation(st3); break;}
+                showMaxTrainsStation(st3); break; }
             case 5:{
                 cout << "5. Report maximum number of trains between stations with lowest possible budget\n";
                 cout << "Please provide the name of the stations: \nOrigin: ";
@@ -106,8 +106,8 @@ void Menu::show() {
                 }
                 delete stat1;
                 delete stat2;
-                showMaxTMinB(st4, st5); break;}
-            case 6:
+                showMaxTMinB(st4, st5); break; }
+            case 6: {
                 cout << "6. Reduced connectivity options\n";
                 cout << "Please choose one of the options: \n";
                 cout << "1. Report the maximum number of trains that can travel between two stations\n";
@@ -124,7 +124,8 @@ void Menu::show() {
                         Station* stat1 = nullptr;
                         Station* stat2 = nullptr;
                         while(stat1 == nullptr){
-                            cin >> st6;
+                            cin.ignore();
+                            getline(cin, st6);
                             stat1 = this->network.getStation(st6);
                             if(stat1 == nullptr){
                                 cout << "Invalid Station, please insert name again.\n";
@@ -132,7 +133,7 @@ void Menu::show() {
                         }
                         cout << "Destination: ";
                         while(stat2 == nullptr){
-                            cin >> st7;
+                            getline(cin, st7);
                             stat2 = this->network.getStation(st7);
                             if(stat2 == nullptr){
                                 cout << "Invalid Station, please insert name again.\n";
@@ -153,7 +154,7 @@ void Menu::show() {
                         break;
 
                 }
-                break;
+                break; }
             case 7:
                 cout << "Exiting system\n";
                 working = false; break;
@@ -216,9 +217,9 @@ void Menu::showReduceConnectivity(vector<Segment *>& v) {
     cout << "Please insert the name of your origin station: \n";
 
     Station *stat = nullptr;
-    std::cin cin;
+    cin.ignore();
     while(stat == nullptr){
-        getline(cin, ori);
+        getline(std::cin, ori);
         stat = this->network.getStation(ori);
         if(stat == nullptr){
             cout << "Invalid Station, please insert name again\n";
@@ -229,9 +230,9 @@ void Menu::showReduceConnectivity(vector<Segment *>& v) {
     cout << "Now select one of the following possible destinations: \n";
     for (int i = 0; i < options.size(); i++) {
         if (options[i]->getA()->getName() == ori) {
-            cout << i + 1 << options[i]->getB()->getName() << endl;
+            cout << i + 1 << ". " << options[i]->getB()->getName() << endl;
         } else {
-            cout << i + 1 << options[i]->getA()->getName() << endl;
+            cout << i + 1 << ". " << options[i]->getA()->getName() << endl;
         }
     }
     int chosen = 0;
