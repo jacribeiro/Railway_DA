@@ -93,7 +93,9 @@ void Menu::show() {
                         showReduceConnectivity(v); break;
                     case 4:
                         break;
+
                 }
+                break;
             case 7:
                 cout << "Exiting system\n";
                 working = false; break;
@@ -154,8 +156,8 @@ void Menu::showReduceConnectivity(vector<Segment *>& v) {
     string ori, dest;
     cout << "You will now select a segment of the network where connectivity should be reduced\n";
     cout << "Please insert the name of your origin station: \n";
-    //getline(cin, ori);
-    cin >> ori;
+    std::cin cin;
+    getline(cin, ori);
     auto stat = this->network.getStation(ori);
     auto options = stat->getAdj();
     cout << "Now select one of the following possible destinations: \n";
