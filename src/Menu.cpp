@@ -156,10 +156,11 @@ void Menu::showReduceConnectivity(vector<Segment *>& v) {
     cout << "You will now select a segment of the network where connectivity should be reduced\n";
     cout << "Please insert the name of your origin station: \n";
     cin >> st1;
-    vector<Segment *> options = network.getStation(st1)->getAdj();
+    auto stat = this->network.getStation(st1);
+    auto options = stat->getAdj();
     cout << "Now select one of the following possible destinations: \n";
     for (int i = 0; i < options.size(); i++) {
-        if (options[i]->getA()->getName() == st1) {
+        if (st1.compare(options[i]->getA()->getName()) == 0) {
             cout << i + 1 << options[i]->getB()->getName() << endl;
         } else {
             cout << i + 1 << options[i]->getA()->getName() << endl;
