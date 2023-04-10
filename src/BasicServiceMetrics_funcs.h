@@ -36,6 +36,12 @@ struct pair_costs {
     pair_costs(string a, string b, int f): stA(a), stB(b), flow(f) {};
 };
 
+class BasicServiceMetrics {
+
+public:
+
+    BasicServiceMetrics();
+
 /**
  * @param s The source station, from where trains will start their path
  * @param t The target station, where trains will try to reach
@@ -44,7 +50,7 @@ struct pair_costs {
  *
  * This function calculates the maximum number of trains (flow) that can travel from one station to another.
 */
-int maxNumberTrains(Station *s, Station *t, vector<Station *>& g);
+    int maxNumberTrains(Station *s, Station *t, vector<Station *>& g);
 
 /**
  * @param s The source station, from where trains will start their path
@@ -55,7 +61,7 @@ int maxNumberTrains(Station *s, Station *t, vector<Station *>& g);
  * This function uses a modified BFS algorithm to find the
  * shortest path between the source node and the sink node.
 */
-bool mnt_bfs(Station *s, Station *t, vector<Station *>& g);
+    bool mnt_bfs(Station *s, Station *t, vector<Station *> &g);
 
 /**
  * @param g The Stations that compose the Graph
@@ -63,7 +69,7 @@ bool mnt_bfs(Station *s, Station *t, vector<Station *>& g);
  *
  * This function finds the pairs of stations that require the most trains to reach from one to the other.
 */
-vector<pair_costs> maxCostStations(vector<Station *>& g);
+    vector <pair_costs> maxCostStations(vector<Station *> &g);
 
 /**
  * @param g The Stations that compose the Graph
@@ -72,7 +78,7 @@ vector<pair_costs> maxCostStations(vector<Station *>& g);
  * This function orders the Station list by cost, using the order_budget struct
  * instead of the Stations themselves.
 */
-vector<Station*>& budget_assignment(int k, vector<Station *>& g);
+    vector<Station *> &budget_assignment(int k, vector<Station *> &g);
 
 /**
  * @param s The source station, from where trains will start their path
@@ -86,7 +92,7 @@ vector<Station*>& budget_assignment(int k, vector<Station *>& g);
  * costs for the company, by building a MST using Kruskal's
  * algorithm.
 */
-int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment *>& e);
+    int minCost_maxFlow(Station *s, Station *t, vector<Station *> &g, vector<Segment *> &e);
 
 /**
  * @param t The Station for which the function calculates the maximum number of trains
@@ -98,7 +104,7 @@ int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment
  * It works by iterating through the edges that connect to t and subtracting
  * from the maximum capacity when there is a bottleneck.
 */
-int maxTrains_forGivenStation(Station *t, vector<Station *>& g);
+    int maxTrains_forGivenStation(Station *t, vector<Station *>& g);
 
 /**
  * @param s The Station from where the algorithm will start its iterations over g
@@ -108,7 +114,7 @@ int maxTrains_forGivenStation(Station *t, vector<Station *>& g);
  * This function uses a modified BFS algorithm to find which Stations are affected by the removal of edges,
  * and calculates their percentual loss of capacity.
 */
-void bfs_less(Station *s, vector<Station *>& g, vector<mock_station>& vec);
+    void bfs_less(Station *s, vector<Station *>& g, vector <mock_station>& vec);
 
 /**
  * @param v A vector containing the removed Segments
@@ -119,6 +125,8 @@ void bfs_less(Station *s, vector<Station *>& g, vector<mock_station>& vec);
  * ordered by the non-ascending percentual loss of capacity
  * of the Stations they represent.
 */
-vector<mock_station> report_losses(vector<Segment *>& v, vector<Station *>& g);
+    vector <mock_station> report_losses(vector<Segment *>& v, vector<Station *>& g);
+
+};
 
 #endif

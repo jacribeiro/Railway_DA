@@ -1,9 +1,11 @@
 #include "BasicServiceMetrics_funcs.h"
 #include <algorithm>
+
 using namespace std;
 
+BasicServiceMetrics::BasicServiceMetrics() = default;
 
-int maxNumberTrains(Station *s, Station *t, vector<Station *>& g) {
+int BasicServiceMetrics::maxNumberTrains(Station *s, Station *t, vector<Station *>& g) {
     //set the flow of the graph to zero (0) in order to avoid calculation errors
     for(auto v : g){
         for(auto e : v->getAdj()){
@@ -40,7 +42,7 @@ int maxNumberTrains(Station *s, Station *t, vector<Station *>& g) {
     return max_flow;
 }
 
-bool mnt_bfs(Station *s, Station *t, vector<Station *>& g) {
+bool BasicServiceMetrics::mnt_bfs(Station *s, Station *t, vector<Station *>& g) {
     queue<Station *> q;
     for(Station* st : g){
         st->setPrevious(nullptr);
@@ -67,7 +69,7 @@ bool mnt_bfs(Station *s, Station *t, vector<Station *>& g) {
 }
 
 
-vector<pair_costs> maxCostStations(vector<Station *>& g) {
+vector<pair_costs> BasicServiceMetrics::maxCostStations(vector<Station *>& g) {
     vector<pair_costs> ret;
     auto n = g.size();
     for(int i = 0; i < n; i++){
@@ -79,7 +81,7 @@ vector<pair_costs> maxCostStations(vector<Station *>& g) {
     return ret;
 }
 
-vector<Station*>& budget_assignment(int k, vector<Station *>& g) {
+vector<Station*>& BasicServiceMetrics::budget_assignment(int k, vector<Station *>& g) {
     int m = k;
     for(auto s : g){
         s->setVisited(false);
@@ -115,7 +117,7 @@ vector<Station*>& budget_assignment(int k, vector<Station *>& g) {
     return v;
 }
 
-int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment*>& e) {
+int BasicServiceMetrics::minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment*>& e) {
     for(Station* st : g){
         st->setPrevious(nullptr);
         st->setVisited(false);
@@ -148,7 +150,7 @@ int minCost_maxFlow(Station *s, Station *t, vector<Station *>& g, vector<Segment
     return ret;
 }
 
-int maxTrains_forGivenStation(Station *t, vector<Station *>& g) {
+int BasicServiceMetrics::maxTrains_forGivenStation(Station *t, vector<Station *>& g) {
     for(Station* st : g){
         st->setPrevious(nullptr);
         st->setVisited(false);
@@ -186,7 +188,7 @@ int maxTrains_forGivenStation(Station *t, vector<Station *>& g) {
     return ret;
 }
 
-void bfs_less(Station *s, vector<Station *>& g, vector<mock_station>& vec) {
+void BasicServiceMetrics::bfs_less(Station *s, vector<Station *>& g, vector<mock_station>& vec) {
     queue<Station *> q;
     
     q.push(s);
@@ -232,7 +234,7 @@ void bfs_less(Station *s, vector<Station *>& g, vector<mock_station>& vec) {
     }
 }
 
-vector<mock_station> report_losses(vector<Segment *>& v, vector<Station *>& g) {
+vector<mock_station> BasicServiceMetrics::report_losses(vector<Segment *>& v, vector<Station *>& g) {
     vector<Station*> visited_nodes;
     vector<aux> edges_to_remove;
     vector<mock_station> ret;

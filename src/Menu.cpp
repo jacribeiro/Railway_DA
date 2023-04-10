@@ -2,7 +2,7 @@
 #include "Menu.h"
 #include "BasicServiceMetrics_funcs.h"
 
-Menu::Menu(FileReader& r, Graph& n): reader(r), network(n) {};
+Menu::Menu(FileReader& r, BasicServiceMetrics m, Graph& n): reader(r), metrics (m), network(n) {};
 
 void Menu::show() {
     bool working = true;
@@ -103,13 +103,13 @@ void Menu::show() {
 
 // Option 1
 void Menu::showMaxNumTrains(const string &st1, const string &st2) {
-    int max = maxNumberTrains(network.getStation(st1), network.getStation(st2), network.getStationSet());
+    int max = metrics.maxNumberTrains(network.getStation(st1), network.getStation(st2), network.getStationSet());
     cout << "The maximum numbers of trains that can travel between " << st1 << " and " << st2 << " is " << max << endl;
 }
 
 // Option 2
 void Menu::showMostTrainsPairs() {
-    vector<pair_costs> v = maxCostStations(network.getStationSet());
+    vector<pair_costs> v = metrics.maxCostStations(network.getStationSet());
     cout << "The pairs of stations with the most trains travelling between them are:\n";
     for (int i = 0; i < 10; i++) {
         cout << v[i].stA << " - " << v[i].stB << endl;
@@ -118,32 +118,32 @@ void Menu::showMostTrainsPairs() {
 
 // Option 3
 void Menu::showBudgetAssign(int k) {
-    budget_assignment(k, network.getStationSet());
+    metrics.budget_assignment(k, network.getStationSet());
 
 }
 
 // Option 4
 void Menu::showMaxTrainsStation(const string &station) {
-    int max = maxTrains_forGivenStation(network.getStation(station), network.getStationSet());
+    int max = metrics.maxTrains_forGivenStation(network.getStation(station), network.getStationSet());
     cout << "The maximum number of trains that can arrive at " << station << " simultaneously is " << max << endl;
 }
 
 // Option 5
 void Menu::showMaxTMinB(const string &st1, const string &st2) {
-    int max = minCost_maxFlow(network.getStation(st1), network.getStation(st2), network.getStationSet(), network.getSegmentSet());
+    int max = metrics.minCost_maxFlow(network.getStation(st1), network.getStation(st2), network.getStationSet(), network.getSegmentSet());
     cout << "The maximum number of trains that can travel between " << st1 << " and " << st2 << " with the lowest budget is " << max << endl;
 }
 
 // Option 6.1
 void Menu::showRCMaxTrains(const string &st1, const string &st2) {
-    int max = maxNumberTrains(network.getStation(st1), network.getStation(st2), network.getStationSet());
+    int max = metrics.maxNumberTrains(network.getStation(st1), network.getStation(st2), network.getStationSet());
     cout << "The maximum number of trains that can travel between " << st1 << " and " << st2 << " given your reduced connectivity conditions is " <<
      max << endl;
 }
 
 // Option 6.2
 void Menu::showRCMostAffStations(vector<Segment *>& v, int k) {
-    vector<mock_station> stations = report_losses(v, network.getStationSet());
+    vector<mock_station> stations = metrics.report_losses(v, network.getStationSet());
     cout << "The most affected stations, ordered by loss of capacity, given your reduced connectivity condition are: \n";
     for (int i = 0; i < k; i++) {
         cout << i + 1 << ". " << stations[i].name << " losing " << stations[i].loss * 100 << "% of its original capacity\n";

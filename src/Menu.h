@@ -2,13 +2,16 @@
 #define RAILWAY_MENU_H
 
 #include "FileReader.h"
+#include "BasicServiceMetrics_funcs.h"
 #include "Graph.h"
 
 using namespace std;
 
 class Menu {
     FileReader& reader;
+    BasicServiceMetrics metrics;
     Graph& network;
+
 
 protected:
     /**
@@ -72,7 +75,7 @@ public:
      * @param r A FileReader object responsible for reading the network files
      * @param n A Graph object, representing the Railway Network
     */
-    Menu(FileReader& r, Graph& n);
+    Menu(FileReader& r, BasicServiceMetrics metrics, Graph& n);
 
     /**
      * Prints the interface and interacts with the user

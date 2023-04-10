@@ -7,7 +7,8 @@ using namespace std;
 int main() {
     FileReader reader = FileReader();
     Graph g = Graph();
-    Menu menu = Menu(reader, g);
+    BasicServiceMetrics m = BasicServiceMetrics();
+    Menu menu = Menu(reader, m, g);
     menu.show();
     g.clearSegments();
     g.clearStations();
