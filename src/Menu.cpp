@@ -118,11 +118,8 @@ void Menu::showMostTrainsPairs() {
 
 // Option 3
 void Menu::showBudgetAssign(int k) {
-    vector<Station *>& v = budget_assignment(network.getStationSet());
-    cout << "The " << k << " stations that require the most budget are:\n";
-    for (int i = 0; i < k; i++) {
-        cout << i+1 << ". " << v[i]->getName() << " in " << v[i]->getMunicipality() << ", " << v[i]->getDistrict() << endl;
-    }
+    budget_assignment(k, network.getStationSet());
+
 }
 
 // Option 4
@@ -133,7 +130,7 @@ void Menu::showMaxTrainsStation(const string &station) {
 
 // Option 5
 void Menu::showMaxTMinB(const string &st1, const string &st2) {
-    int max = minCost_maxFlow(network.getStation(st1), network.getStation(st2), network.getStationSet());
+    int max = minCost_maxFlow(network.getStation(st1), network.getStation(st2), network.getStationSet(), network.getSegmentSet());
     cout << "The maximum number of trains that can travel between " << st1 << " and " << st2 << " with the lowest budget is " << max << endl;
 }
 
