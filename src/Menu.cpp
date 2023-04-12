@@ -57,8 +57,7 @@ void Menu::show() {
                         cout << "Invalid Station, please insert name again.\n";
                     }
                 }
-                delete stat1;
-                delete stat2;
+              
                 showMaxNumTrains(st1, st2); break; }
             case 2:
                 cout << "2. Find the pair(s) of stations that require the most trains between them\n";
@@ -81,7 +80,6 @@ void Menu::show() {
                         cout << "Invalid Station, please insert name again.\n";
                     }
                 }
-                delete stat;
                 showMaxTrainsStation(st3); break; }
             case 5:{
                 cout << "5. Report maximum number of trains between stations with lowest possible budget\n";
@@ -90,22 +88,20 @@ void Menu::show() {
                 Station* stat1 = nullptr;
                 Station* stat2 = nullptr;
                 while(stat1 == nullptr){
-                    cin >> st4;
-                    stat1 = this->network.getStation(st6);
+                    getline(cin, st4);
+                    stat1 = this->network.getStation(st4);
                     if(stat1 == nullptr){
                         cout << "Invalid Station, please insert name again.\n";
                     }
                 }
                 cout << "Destination: ";
                 while(stat2 == nullptr){
-                    cin >> st5;
-                    stat2 = this->network.getStation(st7);
+                    getline(cin, st5);
+                    stat2 = this->network.getStation(st5);
                     if(stat2 == nullptr){
                         cout << "Invalid Station, please insert name again.\n";
                     }
                 }
-                delete stat1;
-                delete stat2;
                 showMaxTMinB(st4, st5); break; }
             case 6: {
                 cout << "6. Reduced connectivity options\n";
@@ -139,8 +135,6 @@ void Menu::show() {
                                 cout << "Invalid Station, please insert name again.\n";
                             }
                         }
-                        delete stat1;
-                        delete stat2;
                         showRCMaxTrains(st6, st7); break;}
                     case 2:
                         cout << "2. Find top-k stations most affected by the reduced connectivity (ordered by percentage of capacity lost)\n";
