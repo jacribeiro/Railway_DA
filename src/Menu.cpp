@@ -57,7 +57,7 @@ void Menu::show() {
                         cout << "Invalid Station, please insert name again.\n";
                     }
                 }
-              
+
                 showMaxNumTrains(st1, st2); break; }
             case 2:
                 cout << "2. Find the pair(s) of stations that require the most trains between them\n";
